@@ -1,0 +1,36 @@
+.list-search-container {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-search {
+  flex: 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.list-search-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  & > p {
+    font-size: 14px;
+    font-weight: $ft-medium;
+  }
+  & > select,
+  input {
+    min-width: 108px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #e1e1e1;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+}
+.list-search-button {
+  width: 66px;
+  height: 36px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+}
