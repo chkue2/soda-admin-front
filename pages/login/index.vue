@@ -17,6 +17,9 @@
 				<button class="login-button" @click="handlerClickLoginButton">
 					로그인
 				</button>
+				<button class="login-button" @click="handlerClickTestButton">
+					un auth test
+				</button>
 			</div>
 		</div>
 	</NuxtLayout>
@@ -42,6 +45,10 @@ const useAuth = useAuthStore();
 const credentials = ref({
 	userId: 'prirosSuperAdmin',
 	password: 'admin34774494!@#$',
+});
+
+onBeforeUnmount(() => {
+	localStorage.removeItem(LOGIN_REDIRECT_AUTH_KEY);
 });
 
 const isValidation = computed(() => {
@@ -86,9 +93,9 @@ const redirect = () => {
 	}
 };
 
-onBeforeUnmount(() => {
-	localStorage.removeItem(LOGIN_REDIRECT_AUTH_KEY);
-});
+const handlerClickTestButton = () => {
+	useAuth.unAuthTest();
+};
 </script>
 
 <style lang="scss" scoped>
