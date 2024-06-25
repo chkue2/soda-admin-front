@@ -17,9 +17,6 @@
 				<button class="login-button" @click="handlerClickLoginButton">
 					로그인
 				</button>
-				<button class="login-button" @click="handlerClickTestButton">
-					un auth test
-				</button>
 			</div>
 		</div>
 	</NuxtLayout>
@@ -94,10 +91,6 @@ const redirect = () => {
 	} else {
 		router.replace(redirectUrl || '/');
 	}
-};
-
-const handlerClickTestButton = () => {
-	useAuth.unAuthTest();
 };
 </script>
 

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { GET, POST } from '~/composables/useApi.js';
+import { POST } from '~/composables/useApi.js';
 import { tokenApi, userSessionKey } from '~/utils/tokenApi';
 
 export const useAuthStore = defineStore(
@@ -65,16 +65,6 @@ export const useAuthStore = defineStore(
 				// 	console.log(e);
 				// 	return false;
 				// }
-			},
-			unAuthTest() {
-				GET('/unauth/test')
-					.then(({ data }) => {
-						console.log(data);
-					})
-					.catch(e => {
-						alert(e.response.data.message);
-						console.log(e);
-					});
 			},
 		},
 	},
