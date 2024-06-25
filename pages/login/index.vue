@@ -83,7 +83,10 @@ const redirect = () => {
 	const redirectAuth = localStorage.getItem(LOGIN_REDIRECT_AUTH_KEY);
 
 	if (redirectAuth === 'Y') {
-		if (route.redirectedFrom.fullPath === undefined) {
+		if (
+			route.redirectedFrom === undefined ||
+			route.redirectedFrom.fullPath === undefined
+		) {
 			router.replace('/');
 		} else {
 			router.replace(route.redirectedFrom.fullPath);

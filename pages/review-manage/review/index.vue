@@ -50,10 +50,20 @@
 			<div class="list-table-item w220">2024-06-19 10:40</div>
 			<div class="list-table-item w150">최*규</div>
 			<div class="list-table-item w100">
-				<button class="highlight">12345</button>
+				<button
+					class="highlight"
+					@click="handlerClickHighlight($event, '12345')"
+				>
+					12345
+				</button>
 			</div>
 			<div class="list-table-item w200">
-				<button class="highlight">홍길동 법무사 사무소</button>
+				<button
+					class="highlight"
+					@click="handlerClickHighlight($event, '홍길동 법무사 사무소')"
+				>
+					홍길동 법무사 사무소
+				</button>
 			</div>
 			<div class="list-table-item w100">4.3</div>
 			<div class="list-table-item w100">4</div>
@@ -65,7 +75,7 @@
 				</p>
 			</div>
 			<div class="list-table-item w150">
-				<select class="review-state">
+				<select class="review-state" @click="handlerClickReviewState($event)">
 					<option value="">공개</option>
 				</select>
 			</div>
@@ -77,9 +87,27 @@
 <script setup>
 import Pagination from '~/components/paging/Pagination.vue';
 
+import { copyClipboard } from '~/assets/js/utils.js';
+
 definePageMeta({
 	middleware: 'auth',
 });
+
+const handlerClickTableColumn = id => {
+	console.log(id);
+};
+
+const handlerClickHighlight = (e, str) => {
+	e.preventDefault();
+	e.stopPropagation();
+
+	copyClipboard(str);
+};
+
+const handlerClickReviewState = e => {
+	e.preventDefault();
+	e.stopPropagation();
+};
 </script>
 
 <style lang="scss" scoped>

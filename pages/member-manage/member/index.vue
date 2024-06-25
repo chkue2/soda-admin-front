@@ -116,11 +116,10 @@ watch(route, () => {
 
 onMounted(() => {
 	searchForm.value = { ...searchForm.value, ...route.query };
-	console.log(searchForm.value);
-	console.log(route.query);
 });
 
 const handlerClickSearchButton = () => {
+	searchForm.value.pageNo = 1;
 	router.push(`/member-manage/member${getQueryString(searchForm.value)}`);
 };
 
