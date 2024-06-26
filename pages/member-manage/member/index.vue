@@ -70,7 +70,9 @@
 			class="list-table-column"
 			@click="handlerClickTableColumn(m.userId)"
 		>
-			<div class="list-table-item w60">{{ index }}</div>
+			<div class="list-table-item w60">
+				{{ Number(paging.startPerPage) - index }}
+			</div>
 			<div class="list-table-item w100">{{ loginTypeText(m.loginType) }}</div>
 			<div class="list-table-item w100">
 				{{ m.useFlag === 'Y' ? '일반회원' : '중지회원' }}

@@ -11,10 +11,10 @@
 				연락처 : {{ rexFormatPhone(memberDetail.mobile) }}
 			</div>
 			<div class="detail-section-text">
-				가입일시 : {{ changeDateTypeWithTime(memberDetail.created) }}
+				가입일시 : {{ changeDateFormatWithTime(memberDetail.created) }}
 			</div>
 			<div class="detail-section-text">
-				최근로그인일시 : {{ changeDateTypeWithTime(memberDetail.updated) }}
+				최근로그인일시 : {{ changeDateFormatWithTime(memberDetail.updated) }}
 			</div>
 			<div class="detail-section-box span-2">
 				회원상태
@@ -42,7 +42,7 @@
 		<div class="detail-section-grid">
 			광고성 정보 수신동의 :
 			{{ memberDetail.advInfoReceiveAgree === 'Y' ? '동의' : '미동의' }} /
-			2024-06-19 10:12:00
+			{{ changeDateFormatWithTime(memberDetail.created) }}
 		</div>
 	</div>
 	<div class="detail-section">
@@ -60,24 +60,40 @@
 				<div class="list-table-item w150">설정대리인</div>
 				<div class="list-table-item w100">진행상태</div>
 			</div>
-			<div v-for="i in 10" :key="i" class="list-table-column">
-				<div class="list-table-item w60">{{ i }}</div>
+			<div
+				v-for="(tradeCase, index) in memberDetail.tradeCaseDtoList || []"
+				:key="index"
+				class="list-table-column"
+			>
+				<div class="list-table-item w60">{{ index + 1 }}</div>
 				<div class="list-table-item w100">
-					<button class="highlight" @click="handlerClickTradeCaseId('24372')">
-						24372
+					<button
+						class="highlight"
+						@click="handlerClickTradeCaseId(tradeCase.tradeCaseId)"
+					>
+						{{ tradeCase.tradeCaseId }}
 					</button>
 				</div>
-				<div class="list-table-item w200">2024041100065</div>
-				<div class="list-table-item w220">2024-04-11 13:55</div>
-				<div class="list-table-item w150">2024-05-01</div>
-				<div class="list-table-item w150">카카오뱅크</div>
-				<div class="list-table-item w220">경기 과천시</div>
+				<div class="list-table-item w200">{{ tradeCase.tradeCaseNo }}</div>
+				<div class="list-table-item w220">
+					{{ changeDateFormatWithTimeRemoveSeconds(tradeCase.created) }}
+				</div>
+				<div class="list-table-item w150">
+					{{ changeDateFormat(tradeCase.issueDate) }}
+				</div>
+				<div class="list-table-item w150">
+					{{ bankNameText(tradeCase.venderId) }}
+				</div>
+				<div class="list-table-item w220">
+					{{ tradeCase.sido }} {{ tradeCase.gugun }}
+				</div>
 				<div class="list-table-item w150">가나다법무사</div>
 				<div class="list-table-item w150">다이렉트로합동법무사</div>
-				<div class="list-table-item w100">접수</div>
+				<div class="list-table-item w100">
+					{{ statusText(tradeCase.state) }}
+				</div>
 			</div>
 		</div>
-		<Pagination />
 	</div>
 </template>
 
@@ -86,8 +102,8 @@ import dayjs from 'dayjs';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-import Pagination from '~/components/paging/Pagination.vue';
-
+import { bankSVG } from '~/assets/js/bankSVG.js';
+import { caseStatus } from '~/assets/js/status.js';
 import { copyClipboard, rexFormatPhone } from '~/assets/js/utils.js';
 import { member } from '~/services/member.js';
 
@@ -126,8 +142,23 @@ const loginTypeText = type => {
 	}
 };
 
-const changeDateTypeWithTime = date => {
+const changeDateFormatWithTime = date => {
+	if (date === undefined || date === null || date === '') return '-';
 	return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+};
+const changeDateFormatWithTimeRemoveSeconds = date => {
+	if (date === undefined || date === null || date === '') return '-';
+	return dayjs(date).format('YYYY-MM-DD HH:mm');
+};
+const changeDateFormat = date => {
+	if (date === undefined || date === null || date === '') return '-';
+	return dayjs(date).format('YYYY-MM-DD');
+};
+const bankNameText = venderId => {
+	return bankSVG[venderId].title;
+};
+const statusText = state => {
+	return caseStatus[state];
 };
 
 const handlerClickTradeCaseId = str => {
