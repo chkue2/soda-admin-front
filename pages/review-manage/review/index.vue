@@ -141,7 +141,18 @@ const reviewList = ref([]);
 const paging = ref({});
 
 watch(route, () => {
-	searchForm.value = { ...searchForm.value, ...route.query };
+	searchForm.value = {
+		...{
+			useYnStr: '',
+			showYnStr: '',
+			fromDate: '',
+			toDate: '',
+			searchType: '',
+			searchKeyword: '',
+			pageNo: 1,
+		},
+		...route.query,
+	};
 	callApi();
 });
 

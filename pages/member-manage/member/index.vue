@@ -127,7 +127,19 @@ const memberList = ref([]);
 const paging = ref({});
 
 watch(route, () => {
-	searchForm.value = { ...searchForm.value, ...route.query };
+	searchForm.value = {
+		...{
+			useFlag: '',
+			loginType: '',
+			searchType: '',
+			fromDate: '',
+			toDate: '',
+			advInfoReceiveAgree: '',
+			searchKeyword: '',
+			pageNo: 1,
+		},
+		...route.query,
+	};
 	callApi();
 });
 
@@ -140,7 +152,6 @@ const callApi = () => {
 	member
 		.getList(searchForm.value)
 		.then(({ data }) => {
-			console.log(data);
 			memberList.value = data.list;
 			paging.value = data.paging;
 		})

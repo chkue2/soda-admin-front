@@ -9,28 +9,38 @@
 			</div>
 			<div class="list-search-item">
 				<p>답변상태</p>
-				<select>
+				<select v-model="searchForm.answerYn">
 					<option value="">전체</option>
+					<option value="N">접수중</option>
+					<option value="Y">답변완료</option>
 				</select>
 			</div>
 			<div class="list-search-item">
 				<p>문의일자</p>
-				<input type="date" />
+				<input v-model="searchForm.fromDate" type="date" />
 				~
-				<input type="date" />
+				<input v-model="searchForm.toDate" type="date" />
 			</div>
 			<div class="list-search-item">
 				<p>검색</p>
-				<input class="w200" type="text" placeholder="아이디/이름/내용/연락처" />
+				<input
+					v-model="searchForm.searchKeyword"
+					class="w200"
+					type="text"
+					placeholder="아이디/이름/내용/연락처"
+					@keyup.enter="handlerClickSearchButton"
+				/>
 			</div>
 		</div>
-		<button class="list-search-button">조회</button>
+		<button class="list-search-button" @click="handlerClickSearchButton">
+			조회
+		</button>
 	</div>
 	<div class="list-table mt18 mb36">
 		<div class="list-table-header">
 			<div class="list-table-item w60">NO</div>
 			<div class="list-table-item w100">유형</div>
-			<div class="list-table-item w250">내용</div>
+			<div class="list-table-item w250">제목</div>
 			<div class="list-table-item w180">아이디(이름)</div>
 			<div class="list-table-item w150">연락처</div>
 			<div class="list-table-item w180">등록일시</div>
@@ -38,40 +48,116 @@
 			<div class="list-table-item w100">답변상태</div>
 		</div>
 		<div
-			v-for="i in 10"
-			:key="i"
+			v-for="(i, index) in inquiryList"
+			:key="index"
 			class="list-table-column"
-			@click="handlerClickTableColumn(i)"
+			@click="handlerClickTableColumn(i.seq)"
 		>
-			<div class="list-table-item w60">{{ i }}</div>
-			<div class="list-table-item w100">유형1</div>
+			<div class="list-table-item w60">{{ paging.startPerPage - index }}</div>
+			<div class="list-table-item w100">기본</div>
 			<div class="list-table-item w250">
 				<p class="inquiry-content ellipsis">
-					20자까지 노출하고 필요시 말줄임표로 보여준다.
+					{{ i.title }}
 				</p>
 			</div>
-			<div class="list-table-item w180">chkue2(최한규)</div>
-			<div class="list-table-item w150">010-4422-9393</div>
-			<div class="list-table-item w180">2024-04-11 11:00</div>
-			<div class="list-table-item w180">2024-04-12 12:00</div>
-			<div class="list-table-item w100">답변완료</div>
+			<div class="list-table-item w180">{{ i.userId }}({{ i.userName }})</div>
+			<div class="list-table-item w150">{{ rexFormatPhone(i.mobile) }}</div>
+			<div class="list-table-item w180">
+				{{ changeDateTypeWithTimeRemoveSeconds(i.created) }}
+			</div>
+			<div class="list-table-item w180">
+				{{ changeDateTypeWithTimeRemoveSeconds(i.answered) }}
+			</div>
+			<div class="list-table-item w100">
+				{{ i.answerYn ? '답변완료' : '접수중' }}
+			</div>
 		</div>
 	</div>
-	<Pagination />
+	<Pagination :paging="paging" @click-page="hanlderClickPageNumber" />
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import dayjs from 'dayjs';
+import { onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 import Pagination from '~/components/paging/Pagination.vue';
+
+import { getQueryString, rexFormatPhone } from '~/assets/js/utils.js';
+import { inquiry } from '~/services/inquiry.js';
 
 definePageMeta({
 	middleware: 'auth',
 });
 
 const router = useRouter();
+const route = useRoute();
+
+const searchForm = ref({
+	useFlag: '',
+	answerYn: '',
+	searchType: '',
+	fromDate: '',
+	toDate: '',
+	searchKeyword: '',
+	pageNo: 1,
+});
+
+const inquiryList = ref([]);
+const paging = ref({});
+
+watch(route, () => {
+	console.log(route.query);
+	searchForm.value = {
+		...{
+			useFlag: '',
+			answerYn: '',
+			searchType: '',
+			fromDate: '',
+			toDate: '',
+			searchKeyword: '',
+			pageNo: 1,
+		},
+		...route.query,
+	};
+	callApi();
+});
+
+onMounted(() => {
+	searchForm.value = { ...searchForm.value, ...route.query };
+	callApi();
+});
+
+const callApi = () => {
+	inquiry
+		.getList(searchForm.value)
+		.then(({ data }) => {
+			console.log(data);
+			inquiryList.value = data.list;
+			paging.value = data.paging;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+};
+
+const handlerClickSearchButton = () => {
+	searchForm.value.pageNo = 1;
+	router.push(`/help-center/inquiry${getQueryString(searchForm.value)}`);
+};
+
+const hanlderClickPageNumber = pageNo => {
+	searchForm.value.pageNo = pageNo;
+	router.push(`/help-center/inquiry${getQueryString(searchForm.value)}`);
+};
+
 const handlerClickTableColumn = id => {
 	router.push(`/help-center/inquiry/detail/${id}`);
+};
+
+const changeDateTypeWithTimeRemoveSeconds = date => {
+	if (date === null || date === undefined || date === '') return '-';
+	return dayjs(date).format('YYYY-MM-DD HH:mm');
 };
 </script>
 

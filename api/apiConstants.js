@@ -22,6 +22,9 @@ const API_URL = {
 		LIST: '/client-grade/list',
 		UPDATE_STATE: '/client-grade',
 	},
+	INQUIRY: {
+		LIST: '/soda-inquiry/list',
+	},
 };
 
 export default API_URL;
