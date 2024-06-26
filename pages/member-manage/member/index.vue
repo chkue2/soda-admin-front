@@ -19,10 +19,10 @@
 				</select>
 			</div>
 			<div class="list-search-item">
-				<select v-model="searchForm.dateType">
+				<select v-model="searchForm.searchType">
 					<option value="">전체</option>
-					<option value="가입일">가입일</option>
-					<option value="최근로그인일">최근로그인일</option>
+					<option value="created">가입일</option>
+					<option value="updated">최근로그인일</option>
 				</select>
 				<input v-model="searchForm.fromDate" type="date" />
 				~
@@ -97,7 +97,7 @@
 
 <script setup>
 import dayjs from 'dayjs';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import Pagination from '~/components/paging/Pagination.vue';
@@ -115,7 +115,7 @@ const route = useRoute();
 const searchForm = ref({
 	useFlag: '',
 	loginType: '',
-	dateType: '',
+	searchType: '',
 	fromDate: '',
 	toDate: '',
 	advInfoReceiveAgree: '',

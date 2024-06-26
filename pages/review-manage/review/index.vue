@@ -3,28 +3,43 @@
 		<div class="list-search">
 			<div class="list-search-item">
 				<p>작성일</p>
-				<select>
-					<option value="">전체</option>
-				</select>
-				<input type="date" />
+				<input v-model="searchForm.fromDate" type="date" />
 				~
-				<input type="date" />
+				<input v-model="searchForm.toDate" type="date" />
 			</div>
 			<div class="list-search-item">
 				<p>상태</p>
-				<select>
+				<select v-model="searchForm.showYnStr">
 					<option value="">전체</option>
+					<option value="Y">공개</option>
+					<option value="N">비공개</option>
+				</select>
+				<select v-model="searchForm.useYnStr">
+					<option value="">전체</option>
+					<option value="Y">정상</option>
+					<option value="N">삭제</option>
 				</select>
 			</div>
 			<div class="list-search-item">
 				<p>검색</p>
-				<select>
+				<select v-model="searchForm.searchType">
 					<option value="">전체</option>
+					<option value="userId">작성자</option>
+					<option value="tradeCaseId">사건번호</option>
+					<option value="firmName">사무소명</option>
+					<option value="memo">작성 내용</option>
 				</select>
-				<input class="w200" type="text" />
+				<input
+					v-model="searchForm.searchKeyword"
+					class="w200"
+					type="text"
+					@keyup.enter="handlerClickSearchButton"
+				/>
 			</div>
 		</div>
-		<button class="list-search-button">조회</button>
+		<button class="list-search-button" @click="handlerClickSearchButton">
+			조회
+		</button>
 	</div>
 	<div class="list-table mt36 mb36">
 		<div class="list-table-header">
@@ -39,22 +54,25 @@
 			<div class="list-table-item w100">업무수행</div>
 			<div class="list-table-item w300">작성 내용</div>
 			<div class="list-table-item w150">상태</div>
+			<div class="list-table-item w100">상태</div>
 		</div>
 		<div
-			v-for="i in 10"
-			:key="i"
+			v-for="(r, index) in reviewList || []"
+			:key="index"
 			class="list-table-column"
-			@click="handlerClickTableColumn(i)"
+			@click="handlerClickTableColumn(r.seq)"
 		>
-			<div class="list-table-item w60">{{ i }}</div>
-			<div class="list-table-item w220">2024-06-19 10:40</div>
-			<div class="list-table-item w150">최*규</div>
+			<div class="list-table-item w60">{{ paging.startPerPage - index }}</div>
+			<div class="list-table-item w220">
+				{{ changeDateFormatWithTimeRemoveSeconds(r.created) }}
+			</div>
+			<div class="list-table-item w150">{{ r.userName }}</div>
 			<div class="list-table-item w100">
 				<button
 					class="highlight"
-					@click="handlerClickHighlight($event, '12345')"
+					@click="handlerClickHighlight($event, r.tradeCaseId)"
 				>
-					12345
+					{{ r.tradeCaseId }}
 				</button>
 			</div>
 			<div class="list-table-item w200">
@@ -65,33 +83,94 @@
 					홍길동 법무사 사무소
 				</button>
 			</div>
-			<div class="list-table-item w100">4.3</div>
-			<div class="list-table-item w100">4</div>
-			<div class="list-table-item w100">4</div>
-			<div class="list-table-item w100">5</div>
-			<div class="list-table-item w300">
+			<div class="list-table-item w100">{{ r.averageCriteria }}</div>
+			<div class="list-table-item w100">{{ r.timeCriteria }}</div>
+			<div class="list-table-item w100">{{ r.kindCriteria }}</div>
+			<div class="list-table-item w100">{{ r.rapidCriteria }}</div>
+			<div
+				class="list-table-item w300 review-content-parent"
+				@mouseover="handlerMouseoverReviewContent"
+				@mouseleave="handlerMouseleaveReviewContent"
+			>
 				<p class="review-content ellipsis">
-					친절하게 처리해 주셔서 감사합니다.
+					{{ r.memo }}
 				</p>
+				<div
+					class="review-content-detail"
+					v-html="r.memo?.replaceAll('\n', '<br>')"
+				></div>
 			</div>
 			<div class="list-table-item w150">
-				<select class="review-state" @click="handlerClickReviewState($event)">
-					<option value="">공개</option>
-				</select>
+				<ReviewStateItem :show-yn="r.showYn" :seq="r.seq" />
 			</div>
+			<div class="list-table-item w100">{{ r.useYn ? '정상' : '삭제' }}</div>
 		</div>
 	</div>
-	<Pagination />
+	<Pagination :paging="paging" @click-page="hanlderClickPageNumber" />
 </template>
 
 <script setup>
+import dayjs from 'dayjs';
+import { onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+import ReviewStateItem from '~/components/item/ReviewStateItem.vue';
 import Pagination from '~/components/paging/Pagination.vue';
 
-import { copyClipboard } from '~/assets/js/utils.js';
+import { copyClipboard, getQueryString } from '~/assets/js/utils.js';
+import { review } from '~/services/review.js';
 
 definePageMeta({
 	middleware: 'auth',
 });
+
+const router = useRouter();
+const route = useRoute();
+
+const searchForm = ref({
+	useYnStr: '',
+	showYnStr: '',
+	fromDate: '',
+	toDate: '',
+	searchType: '',
+	searchKeyword: '',
+	pageNo: 1,
+});
+
+const reviewList = ref([]);
+const paging = ref({});
+
+watch(route, () => {
+	searchForm.value = { ...searchForm.value, ...route.query };
+	callApi();
+});
+
+onMounted(() => {
+	searchForm.value = { ...searchForm.value, ...route.query };
+	callApi();
+});
+
+const callApi = () => {
+	review
+		.getList(searchForm.value)
+		.then(({ data }) => {
+			reviewList.value = data.list;
+			paging.value = data.paging;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+};
+
+const handlerClickSearchButton = () => {
+	searchForm.value.pageNo = 1;
+	router.push(`/review-manage/review${getQueryString(searchForm.value)}`);
+};
+
+const hanlderClickPageNumber = pageNo => {
+	searchForm.value.pageNo = pageNo;
+	router.push(`/review-manage/review${getQueryString(searchForm.value)}`);
+};
 
 const handlerClickTableColumn = id => {
 	console.log(id);
@@ -104,9 +183,16 @@ const handlerClickHighlight = (e, str) => {
 	copyClipboard(str);
 };
 
-const handlerClickReviewState = e => {
-	e.preventDefault();
-	e.stopPropagation();
+const changeDateFormatWithTimeRemoveSeconds = date => {
+	if (date === undefined || date === null || date === '') return '-';
+	return dayjs(date).format('YYYY-MM-DD HH:mm');
+};
+
+const handlerMouseoverReviewContent = e => {
+	e.target.classList.add('open');
+};
+const handlerMouseleaveReviewContent = e => {
+	e.target.classList.remove('open');
 };
 </script>
 
@@ -123,5 +209,26 @@ const handlerClickReviewState = e => {
 	border: 1px solid #e1e1e1;
 	padding: 0 12px;
 	font-size: 14px;
+}
+.review-content-parent {
+	&.open {
+		.review-content-detail {
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+}
+.review-content-detail {
+	position: absolute;
+	top: 0;
+	left: 5px;
+	font-size: 13px;
+	background-color: #ffffff;
+	padding: 8px;
+	border-radius: 8px;
+	box-shadow: 1px 1px 13px #545454;
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.15s linear;
 }
 </style>

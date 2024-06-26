@@ -18,6 +18,10 @@ const API_URL = {
 		LIST: '/user/list',
 		DETAIL: '/user/:user_id',
 	},
+	REVIEW: {
+		LIST: '/client-grade/list',
+		UPDATE_STATE: '/client-grade',
+	},
 };
 
 export default API_URL;
