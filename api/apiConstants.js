@@ -16,6 +16,7 @@ const API_URL = {
 	},
 	MEMBER: {
 		LIST: '/user/list',
+		DETAIL: '/user/:user_id',
 	},
 };
 

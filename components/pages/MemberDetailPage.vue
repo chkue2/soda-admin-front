@@ -2,24 +2,33 @@
 	<div class="detail-section">
 		<p class="detail-section-title">회원 기본정보</p>
 		<div class="detail-section-grid">
-			<div class="detail-section-text">아이디 : chkue2</div>
-			<div class="detail-section-text">가입경로 : 카카오톡</div>
-			<div class="detail-section-text">이름 : 최한규</div>
-			<div class="detail-section-text">연락처 : 010-4422-9393</div>
-			<div class="detail-section-text">가입일시 : 2024-06-19 09:33:33</div>
+			<div class="detail-section-text">아이디 : {{ memberDetail.userId }}</div>
 			<div class="detail-section-text">
-				최근로그인일시 : 2024-06-19 09:34:10
+				가입경로 : {{ loginTypeText(memberDetail.loginType) }}
+			</div>
+			<div class="detail-section-text">이름 : {{ memberDetail.userName }}</div>
+			<div class="detail-section-text">
+				연락처 : {{ rexFormatPhone(memberDetail.mobile) }}
+			</div>
+			<div class="detail-section-text">
+				가입일시 : {{ changeDateTypeWithTime(memberDetail.created) }}
+			</div>
+			<div class="detail-section-text">
+				최근로그인일시 : {{ changeDateTypeWithTime(memberDetail.updated) }}
 			</div>
 			<div class="detail-section-box span-2">
 				회원상태
-				<select v-if="props.type === 'member'" class="w120">
-					<option value="">일반회원</option>
-					<option value="">중지회원</option>
+				<select v-if="props.type === 'member'" v-model="useFlag" class="w120">
+					<option value="Y">일반회원</option>
+					<option value="N">중지회원</option>
 				</select>
 				<p v-if="props.type === 'out'">탈퇴회원</p>
 			</div>
 		</div>
-		<div v-if="props.type === 'member'" class="detail-section-box mt18">
+		<div
+			v-if="props.type === 'member' && useFlag === 'N'"
+			class="detail-section-box mt18"
+		>
 			<input type="date" /> ~ <input type="date" />
 			<input class="w300" type="text" placeholder="중지 사유를 입력해주세요." />
 			<button class="button--save">저장</button>
@@ -31,7 +40,9 @@
 	<div class="detail-section">
 		<p class="detail-section-title">동의여부</p>
 		<div class="detail-section-grid">
-			광고성 정보 수신동의 : 동의 / 2024-06-19 10:12:00
+			광고성 정보 수신동의 :
+			{{ memberDetail.advInfoReceiveAgree === 'Y' ? '동의' : '미동의' }} /
+			2024-06-19 10:12:00
 		</div>
 	</div>
 	<div class="detail-section">
@@ -71,9 +82,14 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
 import Pagination from '~/components/paging/Pagination.vue';
 
-import { copyClipboard } from '~/assets/js/utils.js';
+import { copyClipboard, rexFormatPhone } from '~/assets/js/utils.js';
+import { member } from '~/services/member.js';
 
 const props = defineProps({
 	type: {
@@ -81,6 +97,38 @@ const props = defineProps({
 		default: 'member',
 	},
 });
+
+const route = useRoute();
+
+const memberDetail = ref({});
+const useFlag = ref('');
+
+onMounted(() => {
+	member
+		.getDetail(route.params.id)
+		.then(({ data }) => {
+			memberDetail.value = data;
+			useFlag.value = data.useFlag;
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+});
+
+const loginTypeText = type => {
+	switch (type) {
+		case 'NAVER':
+			return '네이버';
+		case 'KAKAO':
+			return '카카오톡';
+		default:
+			return '등기소다';
+	}
+};
+
+const changeDateTypeWithTime = date => {
+	return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+};
 
 const handlerClickTradeCaseId = str => {
 	copyClipboard(str);
