@@ -63,10 +63,10 @@
 			<div class="list-table-item w180">{{ i.userId }}({{ i.userName }})</div>
 			<div class="list-table-item w150">{{ rexFormatPhone(i.mobile) }}</div>
 			<div class="list-table-item w180">
-				{{ changeDateTypeWithTimeRemoveSeconds(i.created) }}
+				{{ changeDateFormatWithTimeRemoveSeconds(i.created) }}
 			</div>
 			<div class="list-table-item w180">
-				{{ changeDateTypeWithTimeRemoveSeconds(i.answered) }}
+				{{ changeDateFormatWithTimeRemoveSeconds(i.answered) }}
 			</div>
 			<div class="list-table-item w100">
 				{{ i.answerYn ? '답변완료' : '접수중' }}
@@ -77,12 +77,12 @@
 </template>
 
 <script setup>
-import dayjs from 'dayjs';
 import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import Pagination from '~/components/paging/Pagination.vue';
 
+import { changeDateFormatWithTimeRemoveSeconds } from '~/assets/js/dateFormat.js';
 import { getQueryString, rexFormatPhone } from '~/assets/js/utils.js';
 import { inquiry } from '~/services/inquiry.js';
 
@@ -153,11 +153,6 @@ const hanlderClickPageNumber = pageNo => {
 
 const handlerClickTableColumn = id => {
 	router.push(`/help-center/inquiry/detail/${id}`);
-};
-
-const changeDateTypeWithTimeRemoveSeconds = date => {
-	if (date === null || date === undefined || date === '') return '-';
-	return dayjs(date).format('YYYY-MM-DD HH:mm');
 };
 </script>
 

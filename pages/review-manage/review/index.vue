@@ -110,13 +110,13 @@
 </template>
 
 <script setup>
-import dayjs from 'dayjs';
 import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import ReviewStateItem from '~/components/item/ReviewStateItem.vue';
 import Pagination from '~/components/paging/Pagination.vue';
 
+import { changeDateFormatWithTimeRemoveSeconds } from '~/assets/js/dateFormat.js';
 import { copyClipboard, getQueryString } from '~/assets/js/utils.js';
 import { review } from '~/services/review.js';
 
@@ -192,11 +192,6 @@ const handlerClickHighlight = (e, str) => {
 	e.stopPropagation();
 
 	copyClipboard(str);
-};
-
-const changeDateFormatWithTimeRemoveSeconds = date => {
-	if (date === undefined || date === null || date === '') return '-';
-	return dayjs(date).format('YYYY-MM-DD HH:mm');
 };
 
 const handlerMouseoverReviewContent = e => {

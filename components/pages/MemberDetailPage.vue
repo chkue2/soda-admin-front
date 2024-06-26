@@ -98,11 +98,15 @@
 </template>
 
 <script setup>
-import dayjs from 'dayjs';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { bankSVG } from '~/assets/js/bankSVG.js';
+import {
+	changeDateFormat,
+	changeDateFormatWithTime,
+	changeDateFormatWithTimeRemoveSeconds,
+} from '~/assets/js/dateFormat.js';
 import { caseStatus } from '~/assets/js/status.js';
 import { copyClipboard, rexFormatPhone } from '~/assets/js/utils.js';
 import { member } from '~/services/member.js';
@@ -142,18 +146,6 @@ const loginTypeText = type => {
 	}
 };
 
-const changeDateFormatWithTime = date => {
-	if (date === undefined || date === null || date === '') return '-';
-	return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
-};
-const changeDateFormatWithTimeRemoveSeconds = date => {
-	if (date === undefined || date === null || date === '') return '-';
-	return dayjs(date).format('YYYY-MM-DD HH:mm');
-};
-const changeDateFormat = date => {
-	if (date === undefined || date === null || date === '') return '-';
-	return dayjs(date).format('YYYY-MM-DD');
-};
 const bankNameText = venderId => {
 	return bankSVG[venderId].title;
 };

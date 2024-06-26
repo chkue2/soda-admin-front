@@ -84,10 +84,10 @@
 				{{ m.advInfoReceiveAgree === 'Y' ? '동의' : '미동의' }}
 			</div>
 			<div class="list-table-item w220">
-				{{ changeDateTypeWithTime(m.created) }}
+				{{ changeDateFormatWithTime(m.created) }}
 			</div>
 			<div class="list-table-item w220">
-				{{ changeDateTypeWithTime(m.updated) }}
+				{{ changeDateFormatWithTime(m.updated) }}
 			</div>
 			<div class="list-table-item w60"></div>
 		</div>
@@ -96,12 +96,12 @@
 </template>
 
 <script setup>
-import dayjs from 'dayjs';
 import { onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import Pagination from '~/components/paging/Pagination.vue';
 
+import { changeDateFormatWithTime } from '~/assets/js/dateFormat.js';
 import { getQueryString, rexFormatPhone } from '~/assets/js/utils.js';
 import { member } from '~/services/member.js';
 
@@ -183,10 +183,6 @@ const loginTypeText = type => {
 		default:
 			return '등기소다';
 	}
-};
-
-const changeDateTypeWithTime = date => {
-	return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
 };
 </script>
 
