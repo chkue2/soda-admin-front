@@ -14,6 +14,9 @@ const API_URL = {
 		LOGOUT: '/auth/logout',
 		REFRESH: '/auth/refresh',
 	},
+	MEMBER: {
+		LIST: '/user/list',
+	},
 };
 
 export default API_URL;
