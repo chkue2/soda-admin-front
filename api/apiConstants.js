@@ -27,6 +27,7 @@ const API_URL = {
 	},
 	NOTICE: {
 		LIST: '/soda-notice/list',
+		SET: '/soda-notice/:board_id',
 	},
 };
 

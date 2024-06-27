@@ -162,19 +162,6 @@ const callApi = () => {
 		});
 };
 
-const statusText = state => {
-	switch (state) {
-		case 'Y':
-			return '공개';
-		case 'N':
-			return '비공개';
-		case 'W':
-			return '공개대기';
-		case 'T':
-			return '임시저장';
-	}
-};
-
 const handlerClickSearchButton = () => {
 	searchForm.value.pageNo = 1;
 	router.push(`/notice-manage/notice${getQueryString(searchForm.value)}`);
@@ -183,6 +170,10 @@ const handlerClickSearchButton = () => {
 const hanlderClickPageNumber = pageNo => {
 	searchForm.value.pageNo = pageNo;
 	router.push(`/notice-manage/notice${getQueryString(searchForm.value)}`);
+};
+
+const handlerClickTableColumn = boardId => {
+	router.push(`/notice-manage/notice/write/${boardId}`);
 };
 </script>
 

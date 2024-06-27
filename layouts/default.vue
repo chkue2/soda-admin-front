@@ -28,8 +28,10 @@ const props = defineProps({
 	max-width: 1600px;
 }
 .top-nav {
-	padding-bottom: 24px;
 	font-size: 14px;
 	font-weight: $ft-bold;
+	border-bottom: 1px solid #e1e1e1;
+	padding-bottom: 12px;
+	margin-bottom: 12px;
 }
 </style>
