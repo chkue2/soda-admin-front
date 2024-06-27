@@ -79,9 +79,9 @@
 				<div class="list-table-item w200">
 					<button
 						class="highlight"
-						@click="handlerClickHighlight($event, '홍길동 법무사 사무소')"
+						@click="handlerClickHighlight($event, r.firmName)"
 					>
-						홍길동 법무사 사무소
+						{{ r.firmName }}
 					</button>
 				</div>
 				<div class="list-table-item w100">{{ r.averageCriteria }}</div>
@@ -99,6 +99,7 @@
 					<div
 						class="review-content-detail"
 						v-html="r.memo?.replaceAll('\n', '<br>')"
+						@click="handlerClickDisableEvent"
 					></div>
 				</div>
 				<div class="list-table-item w150">
@@ -202,6 +203,11 @@ const handlerMouseoverReviewContent = e => {
 };
 const handlerMouseleaveReviewContent = e => {
 	e.target.classList.remove('open');
+};
+
+const handlerClickDisableEvent = e => {
+	e.preventDefault();
+	e.stopPropagation();
 };
 </script>
 

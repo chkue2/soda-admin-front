@@ -151,6 +151,7 @@ const handlerClickToggleMenu = i => {
 	& > img {
 		width: 20px;
 		height: 20px;
+		margin-top: 2px;
 	}
 	& > span {
 		font-size: 14px;

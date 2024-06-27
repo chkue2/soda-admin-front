@@ -18,7 +18,12 @@
 			</div>
 			<div class="detail-section-box span-2">
 				회원상태
-				<select v-if="props.type === 'member'" v-model="useFlag" class="w120">
+				<select
+					v-if="props.type === 'member'"
+					v-model="useFlag"
+					class="w120"
+					@change="handlerChangeUseFlagY"
+				>
 					<option value="Y">일반회원</option>
 					<option value="N">중지회원</option>
 				</select>
@@ -29,9 +34,17 @@
 			v-if="props.type === 'member' && useFlag === 'N'"
 			class="detail-section-box mt18"
 		>
-			<input type="date" /> ~ <input type="date" />
-			<input class="w300" type="text" placeholder="중지 사유를 입력해주세요." />
-			<button class="button--save">저장</button>
+			중지 만료 날짜
+			<input v-model="suspendForm.suspendEndDate" type="date" />
+			<input
+				v-model="suspendForm.suspendReason"
+				class="w300"
+				type="text"
+				placeholder="중지 사유를 입력해주세요."
+			/>
+			<button class="button--save" @click="handlerClickSuspendSave">
+				저장
+			</button>
 		</div>
 		<div v-if="props.type === 'out'" class="detail-section-box mt18">
 			<input class="w500" type="text" placeholder="탈퇴 사유" readonly />
@@ -99,7 +112,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import { bankSVG } from '~/assets/js/bankSVG.js';
 import {
@@ -119,9 +132,14 @@ const props = defineProps({
 });
 
 const route = useRoute();
+const router = useRouter();
 
 const memberDetail = ref({});
 const useFlag = ref('');
+const suspendForm = ref({
+	suspendReason: '',
+	suspendEndDate: '',
+});
 
 onMounted(() => {
 	member
@@ -129,6 +147,8 @@ onMounted(() => {
 		.then(({ data }) => {
 			memberDetail.value = data;
 			useFlag.value = data.useFlag;
+			suspendForm.value.suspendReason = data.suspendReason || '';
+			suspendForm.value.suspendEndDate = data.suspendEndDate || '';
 		})
 		.catch(e => {
 			alert(e.response.data.message);
@@ -155,6 +175,43 @@ const statusText = state => {
 
 const handlerClickTradeCaseId = str => {
 	copyClipboard(str);
+};
+
+const handlerClickSuspendSave = () => {
+	const formData = {
+		...suspendForm.value,
+		userId: memberDetail.value.userId,
+		useFlag: useFlag.value,
+	};
+
+	member
+		.setState(formData)
+		.then(() => {
+			router.go(0);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
+};
+
+const handlerChangeUseFlagY = e => {
+	if (e.target.value === 'Y') {
+		const formData = {
+			suspendReason: '',
+			suspendEndDate: '',
+			userId: memberDetail.value.userId,
+			useFlag: useFlag.value,
+		};
+
+		member
+			.setState(formData)
+			.then(() => {
+				router.go(0);
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	}
 };
 </script>
 

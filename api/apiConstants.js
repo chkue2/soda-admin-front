@@ -17,6 +17,7 @@ const API_URL = {
 	MEMBER: {
 		LIST: '/user/list',
 		DETAIL: '/user/:user_id',
+		SET: '/user/state',
 	},
 	REVIEW: {
 		LIST: '/client-grade/list',
@@ -24,6 +25,8 @@ const API_URL = {
 	},
 	INQUIRY: {
 		LIST: '/soda-inquiry/list',
+		DETAIL: '/soda-inquiry/:seq',
+		SET: '/soda-inquiry/:seq',
 	},
 	NOTICE: {
 		LIST: '/soda-notice/list',

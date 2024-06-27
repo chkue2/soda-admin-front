@@ -1,4 +1,9 @@
-import { API_URL, GET_AUTH, getEndpoint } from '~/composables/useApi.js';
+import {
+	API_URL,
+	GET_AUTH,
+	POST_AUTH,
+	getEndpoint,
+} from '~/composables/useApi.js';
 
 export const member = {
 	async getList(searchForm) {
@@ -7,5 +12,8 @@ export const member = {
 	async getDetail(userId) {
 		const endpoint = getEndpoint(API_URL.MEMBER.DETAIL, { user_id: userId });
 		return await GET_AUTH(endpoint);
+	},
+	async setState(data) {
+		return await POST_AUTH(API_URL.MEMBER.SET, data);
 	},
 };
