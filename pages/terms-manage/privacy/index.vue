@@ -15,7 +15,9 @@
 		<button class="list-search-button">조회</button>
 	</div>
 	<div class="buttons-container buttons--right mt36 mb18">
-		<NuxtLink class="button--black" to="/terms-manage/use/write">등록</NuxtLink>
+		<NuxtLink class="button--black" to="/terms-manage/privacy/write"
+			>등록</NuxtLink
+		>
 	</div>
 	<div class="list-table mt18 mb36">
 		<div class="list-table-header">
