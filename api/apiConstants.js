@@ -25,6 +25,9 @@ const API_URL = {
 	INQUIRY: {
 		LIST: '/soda-inquiry/list',
 	},
+	NOTICE: {
+		LIST: '/soda-notice/list',
+	},
 };
 
 export default API_URL;

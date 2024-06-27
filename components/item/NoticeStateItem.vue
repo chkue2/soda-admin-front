@@ -7,16 +7,15 @@
 	>
 		<option value="Y">공개</option>
 		<option value="N">비공개</option>
+		<option value="W">공개대기</option>
 	</select>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 
-import { review } from '~/services/review.js';
-
 const props = defineProps({
-	showYn: {
+	useFlag: {
 		type: Boolean,
 		default: true,
 	},
@@ -29,7 +28,7 @@ const props = defineProps({
 const stateValue = ref('');
 
 onMounted(() => {
-	stateValue.value = props.showYn ? 'Y' : 'N';
+	stateValue.value = props.useFlag;
 });
 
 const handlerClickReviewState = e => {
@@ -38,13 +37,14 @@ const handlerClickReviewState = e => {
 };
 
 const handlerChangeReviewState = () => {
-	review
-		.updateState({ seq: props.seq, showYnStr: stateValue.value })
-		.then(({ data }) => {
-			alert(data.message);
-		})
-		.catch(e => {
-			alert(e.response.data.message);
-		});
+	console.log(1);
+	// review
+	// 	.updateState({ seq: props.seq, showYnStr: stateValue.value })
+	// 	.then(({ data }) => {
+	// 		alert(data.message);
+	// 	})
+	// 	.catch(e => {
+	// 		alert(e.response.data.message);
+	// 	});
 };
 </script>
