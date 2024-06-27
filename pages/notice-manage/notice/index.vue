@@ -183,4 +183,12 @@ const handlerClickTableColumn = boardId => {
 .notice-content {
 	max-width: 240px;
 }
+.notice-state {
+	min-width: 88px;
+	height: 36px;
+	border-radius: 8px;
+	border: 1px solid #e1e1e1;
+	padding: 0 12px;
+	font-size: 14px;
+}
 </style>

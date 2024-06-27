@@ -1,9 +1,9 @@
 <template>
 	<select
 		v-model="stateValue"
-		class="review-state"
-		@click="handlerClickReviewState($event)"
-		@change="handlerChangeReviewState"
+		class="notice-state"
+		@click="handlerClickNoticeState($event)"
+		@change="handlerChangeNoticeState"
 	>
 		<option value="Y">공개</option>
 		<option value="N">비공개</option>
@@ -17,8 +17,8 @@ import { onMounted, ref } from 'vue';
 
 const props = defineProps({
 	useFlag: {
-		type: Boolean,
-		default: true,
+		type: String,
+		default: 'Y',
 	},
 	seq: {
 		type: Number,
@@ -32,12 +32,12 @@ onMounted(() => {
 	stateValue.value = props.useFlag;
 });
 
-const handlerClickReviewState = e => {
+const handlerClickNoticeState = e => {
 	e.preventDefault();
 	e.stopPropagation();
 };
 
-const handlerChangeReviewState = () => {
+const handlerChangeNoticeState = () => {
 	console.log(1);
 	// review
 	// 	.updateState({ seq: props.seq, showYnStr: stateValue.value })

@@ -45,6 +45,8 @@
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { notice } from '~/services/notice.js';
+
 const route = useRoute();
 const boardId = route.params.id || 0;
 
@@ -71,6 +73,18 @@ const emit = defineEmits(['notice-save']);
 
 onMounted(() => {
 	$('#summernote').summernote({ height: 300 });
+
+	if (boardId > 0) {
+		notice
+			.getDetail(boardId)
+			.then(({ data }) => {
+				form.value = { ...form.value, ...data };
+				$('#summernote').summernote('code', form.value.content);
+			})
+			.catch(e => {
+				alert(e.response.data.message);
+			});
+	}
 });
 
 const handlerClickSaveButton = () => {

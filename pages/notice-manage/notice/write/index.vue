@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import dayjs from 'dayjs';
 import { useRouter } from 'vue-router';
 
 import NoticeWritePage from '~/components/pages/NoticeWritePage.vue';
@@ -21,8 +22,10 @@ const router = useRouter();
 const noticeSave = form => {
 	const formData = {
 		...form,
-		created: new Date().toISOString(),
-		updated: new Date().toISOString(),
+		noticeStartDt: dayjs(form.noticeStartDt).format('YYYY-MM-DD HH:mm:ss'),
+		noticeEndDt: dayjs(form.noticeEndDt).format('YYYY-MM-DD HH:mm:ss'),
+		created: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+		updated: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 	};
 
 	notice

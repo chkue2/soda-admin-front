@@ -15,4 +15,8 @@ export const notice = {
 		});
 		return await POST_AUTH(endpoint, data);
 	},
+	async getDetail(boardId) {
+		const endpoint = getEndpoint(API_URL.NOTICE.DETAIL, { board_id: boardId });
+		return await GET_AUTH(endpoint);
+	},
 };
