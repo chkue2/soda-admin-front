@@ -4,7 +4,8 @@
 			<p class="detail-section-title">기본정보</p>
 			<div class="detail-section-grid">
 				<div class="detail-section-text">
-					답변상태 : {{ inquiryDetail.answerYn ? '답변완료' : '접수중' }}
+					답변상태 :
+					{{ inquiryDetail.answerYn === 'Y' ? '답변완료' : '접수중' }}
 				</div>
 				<div></div>
 				<div class="detail-section-text">

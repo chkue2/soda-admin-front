@@ -70,7 +70,7 @@
 					{{ changeDateFormatWithTimeRemoveSeconds(i.answered) }}
 				</div>
 				<div class="list-table-item w100">
-					{{ i.answerYn ? '답변완료' : '접수중' }}
+					{{ i.answerYn === 'Y' ? '답변완료' : '접수중' }}
 				</div>
 			</div>
 		</div>
