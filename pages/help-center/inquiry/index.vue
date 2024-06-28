@@ -135,7 +135,6 @@ const callApi = () => {
 	inquiry
 		.getList(searchForm.value)
 		.then(({ data }) => {
-			console.log(data);
 			inquiryList.value = data.list;
 			paging.value = data.paging;
 		})
