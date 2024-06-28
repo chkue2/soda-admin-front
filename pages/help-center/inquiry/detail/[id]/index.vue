@@ -96,7 +96,8 @@ const handlerClickSaveButton = () => {
 	inquiry
 		.setInquiryAnswer(formData)
 		.then(() => {
-			router.push(-1);
+			alert('답변이 완료되었습니다.');
+			router.go(-1);
 		})
 		.catch(e => {
 			alert(e.response.data.message);

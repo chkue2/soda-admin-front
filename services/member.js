@@ -16,4 +16,7 @@ export const member = {
 	async setState(data) {
 		return await POST_AUTH(API_URL.MEMBER.SET, data);
 	},
+	async getOutList(searchForm) {
+		return await GET_AUTH(API_URL.MEMBER.LIST_OUT, searchForm);
+	},
 };

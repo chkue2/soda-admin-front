@@ -66,7 +66,7 @@
 				<div class="list-table-item w60"></div>
 			</div>
 			<div
-				v-for="(m, index) in memberList"
+				v-for="(m, index) in memberList || []"
 				:key="index"
 				class="list-table-column"
 				@click="handlerClickTableColumn(m.userId)"

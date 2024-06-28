@@ -100,8 +100,12 @@
 				<div class="list-table-item w220">
 					{{ tradeCase.sido }} {{ tradeCase.gugun }}
 				</div>
-				<div class="list-table-item w150">가나다법무사</div>
-				<div class="list-table-item w150">다이렉트로합동법무사</div>
+				<div class="list-table-item w150">
+					{{ tradeCase.acceptFirmName || '-' }}
+				</div>
+				<div class="list-table-item w150">
+					{{ tradeCase.mortgageFirmName || '-' }}
+				</div>
 				<div class="list-table-item w100">
 					{{ statusText(tradeCase.state) }}
 				</div>

@@ -18,6 +18,7 @@ const API_URL = {
 		LIST: '/user/list',
 		DETAIL: '/user/:user_id',
 		SET: '/user/state',
+		LIST_OUT: '/user/resign/list',
 	},
 	REVIEW: {
 		LIST: '/client-grade/list',
