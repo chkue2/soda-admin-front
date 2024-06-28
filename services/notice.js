@@ -19,4 +19,7 @@ export const notice = {
 		const endpoint = getEndpoint(API_URL.NOTICE.DETAIL, { board_id: boardId });
 		return await GET_AUTH(endpoint);
 	},
+	async updateNoticeState(data) {
+		return await POST_AUTH(API_URL.NOTICE.UPDATE_STATE, data);
+	},
 };

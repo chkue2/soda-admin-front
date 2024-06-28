@@ -82,7 +82,7 @@
 					{{ changeDateFormat(n.noticeEndDt) }}
 				</div>
 				<div class="list-table-item w100">
-					<NoticeStateItem :seq="n.boardId" :use-flag="n.useFlag" />
+					<NoticeStateItem :board-id="n.boardId" :use-flag="n.useFlag" />
 				</div>
 				<div class="list-table-item w100">{{ n.noticePopupFlag }}</div>
 				<div class="list-table-item w100">{{ n.helpCenter }}</div>

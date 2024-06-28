@@ -15,12 +15,14 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
+import { notice } from '~/services/notice.js';
+
 const props = defineProps({
 	useFlag: {
 		type: String,
 		default: 'Y',
 	},
-	seq: {
+	boardId: {
 		type: Number,
 		default: 0,
 	},
@@ -38,14 +40,13 @@ const handlerClickNoticeState = e => {
 };
 
 const handlerChangeNoticeState = () => {
-	console.log(1);
-	// review
-	// 	.updateState({ seq: props.seq, showYnStr: stateValue.value })
-	// 	.then(({ data }) => {
-	// 		alert(data.message);
-	// 	})
-	// 	.catch(e => {
-	// 		alert(e.response.data.message);
-	// 	});
+	notice
+		.updateNoticeState({ boardId: props.boardId, useFlag: stateValue.value })
+		.then(({ data }) => {
+			alert(data.message);
+		})
+		.catch(e => {
+			alert(e.response.data.message);
+		});
 };
 </script>

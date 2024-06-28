@@ -33,6 +33,7 @@ const API_URL = {
 		LIST: '/soda-notice/list',
 		SET: '/soda-notice/:board_id',
 		DETAIL: '/soda-notice/:board_id',
+		UPDATE_STATE: '/soda-notice/state',
 	},
 };
 
