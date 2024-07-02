@@ -36,36 +36,67 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="side-menu-bottom">
-      <div class="bottom-left">
-        <img
-          src="/img/cha/cha-empty.png"
-          alt="프로필 사진"
-          class="bottom-left-profile"
-        />
-        <div class="bottom-text">
-          <p class="bottom-name">김프리 법무사</p>
-          <p class="bottom-position">프리법무사 사무소</p>
-        </div>
-      </div>
-      <img
-        src="/img/icon/more-dot-black.svg"
-        alt="프로필 더보기"
-        class="bottom-right"
-      />
-    </div> -->
+		<div
+			class="side-menu-bottom"
+			:class="{ open: bottomMenuOpen }"
+			@mouseover="
+				() => {
+					bottomMenuOpen = true;
+				}
+			"
+			@mouseleave="
+				() => {
+					bottomMenuOpen = false;
+				}
+			"
+		>
+			<div class="bottom-left">
+				<img
+					src="/img/icon/profile-empty.png"
+					alt="프로필 사진"
+					class="bottom-left-profile"
+				/>
+				<div class="bottom-text">
+					<p class="bottom-name">Admin</p>
+				</div>
+			</div>
+			<img
+				src="/img/icon/more-dot-black.svg"
+				alt="프로필 더보기"
+				class="bottom-right"
+			/>
+			<div class="side-menu-bottom-submenu">
+				<div class="bottom-menu-item">어드민 정보 수정</div>
+				<div
+					class="bottom-menu-item"
+					@click="
+						() => {
+							authStore.logout();
+							router.go(0);
+						}
+					"
+				>
+					로그아웃
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script setup>
 import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import { menus } from '~/assets/js/menus.js';
+import { useAuthStore } from '~/store/auth.js';
 
 const route = useRoute();
+const router = useRouter();
+
+const authStore = useAuthStore();
 
 const menuOpens = ref(new Array(menus.length).fill(true));
+const bottomMenuOpen = ref(false);
 
 const menusArray = computed(() =>
 	menus.reduce((acc, cur) => {
@@ -151,6 +182,7 @@ const handlerClickToggleMenu = i => {
 	& > img {
 		width: 20px;
 		height: 20px;
+		margin-top: 2px;
 	}
 	& > span {
 		font-size: 14px;
@@ -168,7 +200,7 @@ const handlerClickToggleMenu = i => {
 	border-radius: 2px;
 }
 .side-menu-container {
-	padding: 16px 16px 63px;
+	padding: 16px 16px 130px;
 }
 .side-menu-toggle {
 	margin-bottom: 8px;
@@ -198,13 +230,20 @@ const handlerClickToggleMenu = i => {
 	}
 }
 .side-menu-bottom {
+	width: 260px;
 	padding: 16px;
 	background-color: #f6f6f6;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	position: sticky;
+	position: fixed;
 	bottom: 0;
+	&.open {
+		.side-menu-bottom-submenu {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
 	.bottom-left {
 		display: flex;
 		align-items: center;
@@ -232,6 +271,25 @@ const handlerClickToggleMenu = i => {
 		width: 20px;
 		height: 20px;
 		cursor: pointer;
+	}
+}
+.side-menu-bottom-submenu {
+	position: absolute;
+	right: -135px;
+	bottom: 25px;
+	background-color: #f5f5f5;
+	border-radius: 8px;
+	padding: 12px;
+	box-shadow: 1px 1px 12px 0px #bcbcbc;
+	visibility: hidden;
+	transition: all 0.2s linear;
+}
+.bottom-menu-item {
+	font-size: 14px;
+	padding: 8px 12px;
+	cursor: pointer;
+	& + .bottom-menu-item {
+		border-top: 1px solid #e1e1e1;
 	}
 }
 </style>

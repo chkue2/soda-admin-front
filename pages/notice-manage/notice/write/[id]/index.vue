@@ -1,5 +1,5 @@
 <template>
-	<NuxtLayout name="default" nav="공지사항관리 > 공지사항등록">
+	<NuxtLayout name="default" nav="공지사항관리 > 공지사항수정">
 		<NoticeWritePage @notice-save="noticeSave" />
 	</NuxtLayout>
 </template>
@@ -24,7 +24,6 @@ const noticeSave = form => {
 		...form,
 		noticeStartDt: dayjs(form.noticeStartDt).format('YYYY-MM-DD HH:mm:ss'),
 		noticeEndDt: dayjs(form.noticeEndDt).format('YYYY-MM-DD HH:mm:ss'),
-		created: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 		updated: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 	};
 

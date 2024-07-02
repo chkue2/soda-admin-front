@@ -14,6 +14,27 @@ const API_URL = {
 		LOGOUT: '/auth/logout',
 		REFRESH: '/auth/refresh',
 	},
+	MEMBER: {
+		LIST: '/user/list',
+		DETAIL: '/user/:user_id',
+		SET: '/user/state',
+		LIST_OUT: '/user/resign/list',
+	},
+	REVIEW: {
+		LIST: '/client-grade/list',
+		UPDATE_STATE: '/client-grade',
+	},
+	INQUIRY: {
+		LIST: '/soda-inquiry/list',
+		DETAIL: '/soda-inquiry/:seq',
+		SET: '/soda-inquiry/:seq',
+	},
+	NOTICE: {
+		LIST: '/soda-notice/list',
+		SET: '/soda-notice/:board_id',
+		DETAIL: '/soda-notice/:board_id',
+		UPDATE_STATE: '/soda-notice/state',
+	},
 };
 
 export default API_URL;

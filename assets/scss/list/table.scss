@@ -1,41 +1,42 @@
 .list-table {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 .list-table-header {
-  display: flex;
-  background-color: #333333;
-  .list-table-item {
-    color: #ffffff;
-  }
+	display: flex;
+	background-color: #333333;
+	.list-table-item {
+		color: #ffffff;
+	}
 }
 .list-table-column {
-  display: flex;
-  cursor: pointer;
-  border-bottom: 1px solid #e1e1e1;
+	display: flex;
+	cursor: pointer;
+	border-bottom: 1px solid #e1e1e1;
 }
 .list-table-item {
-  text-align: center;
-  min-height: 36px;
-  padding: 6px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	text-align: center;
+	min-height: 36px;
+	padding: 6px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
 }
 .highlight {
-  font-size: 14px;
-  background-color: rgba(113, 212, 225, 0.4);
-  padding: 4px;
-  border-radius: 4px;
+	font-size: 14px;
+	background-color: rgba(113, 212, 225, 0.4);
+	padding: 4px;
+	border-radius: 4px;
 }
 .ellipsis {
-  font-size: 13px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+	font-size: 13px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .button--trash {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
 }

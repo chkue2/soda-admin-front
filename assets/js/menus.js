@@ -62,7 +62,7 @@ const menus = [
 			{
 				icon: 'inquiry-off.svg',
 				activeIcon: 'inquiry-on.svg',
-				title: '문의사항 관리',
+				title: '문의사항관리',
 				to: '/help-center/inquiry',
 			},
 		],

@@ -44,6 +44,10 @@ const credentials = ref({
 	password: 'admin34774494!@#$',
 });
 
+onBeforeUnmount(() => {
+	localStorage.removeItem(LOGIN_REDIRECT_AUTH_KEY);
+});
+
 const isValidation = computed(() => {
 	return credentials.value.userId !== '' && credentials.value.password !== '';
 });
@@ -76,7 +80,10 @@ const redirect = () => {
 	const redirectAuth = localStorage.getItem(LOGIN_REDIRECT_AUTH_KEY);
 
 	if (redirectAuth === 'Y') {
-		if (route.redirectedFrom.fullPath === undefined) {
+		if (
+			route.redirectedFrom === undefined ||
+			route.redirectedFrom.fullPath === undefined
+		) {
 			router.replace('/');
 		} else {
 			router.replace(route.redirectedFrom.fullPath);
@@ -85,10 +92,6 @@ const redirect = () => {
 		router.replace(redirectUrl || '/');
 	}
 };
-
-onBeforeUnmount(() => {
-	localStorage.removeItem(LOGIN_REDIRECT_AUTH_KEY);
-});
 </script>
 
 <style lang="scss" scoped>

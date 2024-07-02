@@ -100,11 +100,17 @@ const getQueryString = data => {
 	let queryString = '';
 	for (const key in data) {
 		const value = data[key];
-		if (value !== null && value !== undefined && value !== '') {
-			if (queryString.length === 0) {
-				queryString += `?${key}=${value}`;
-			} else {
-				queryString += `&${key}=${value}`;
+		if (
+			!['dep', '__v_isRef', '__v_isShallow', '_rawValue', '_value'].includes(
+				key,
+			)
+		) {
+			if (value !== null && value !== undefined && value !== '') {
+				if (queryString.length === 0) {
+					queryString += `?${key}=${value}`;
+				} else {
+					queryString += `&${key}=${value}`;
+				}
 			}
 		}
 	}
@@ -125,6 +131,7 @@ const copyClipboard = str => {
 	document.execCommand('copy');
 	tmpEl.setSelectionRange(0, 0);
 	document.body.removeChild(tmpEl);
+	alert(`${str} 복사되었습니다.`);
 };
 
 export {

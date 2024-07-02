@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
 	app: {
 		head: {
+			title: '등기소다 관리자',
 			meta: [
 				{
 					name: 'viewport',

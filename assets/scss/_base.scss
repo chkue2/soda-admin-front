@@ -1,57 +1,65 @@
-@import "reset";
+@import 'reset';
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-  //background-color: $body-bg;
-  color: $font-default;
-  font: {
-    family: "Noto Sans KR", "Roboto", sans-serif;
-    weight: 400;
-    size: 16px;
-  }
+	//background-color: $body-bg;
+	color: $font-default;
+	font: {
+		family: 'Noto Sans KR', 'Roboto', sans-serif;
+		weight: 400;
+		size: 16px;
+	}
 }
 
 .container {
-  margin: 0 $grid-margin;
+	margin: 0 $grid-margin;
 }
 
 .app {
-  max-width: $wrapper-width;
-  margin: 0 auto;
+	max-width: $wrapper-width;
+	margin: 0 auto;
 }
 
 .wrapper {
-  padding-bottom: $footer-nav-height;
+	padding-bottom: $footer-nav-height;
 }
 
 .pointer {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .buttons-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  &.buttons--right {
-    justify-content: flex-end;
-  }
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	&.buttons--right {
+		justify-content: flex-end;
+	}
 }
 
 .button--black {
-  padding: 8px 16px;
-  border-radius: 4px;
-  background-color: #000000;
-  color: #ffffff;
-  text-decoration: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	background-color: #000000;
+	color: #ffffff;
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+		color: #ffffff;
+	}
 }
 
 .button--white {
-  padding: 8px 16px;
-  border-radius: 4px;
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #e1e1e1;
-  text-decoration: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	background-color: #ffffff;
+	color: #000000;
+	border: 1px solid #e1e1e1;
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+		color: #000000;
+	}
 }
