@@ -1,11 +1,14 @@
 <template>
-	<NuxtLayout name="default" nav="이용약관 > 등록">
-		<TermsWritePage @click-save-button="handlerClickSaveButton" />
+	<NuxtLayout name="default" nav="개인정보처리방침 > 수정">
+		<TermsWritePage
+			:seq="route.params.id"
+			@click-save-button="handlerClickSaveButton"
+		/>
 	</NuxtLayout>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import TermsWritePage from '~/components/pages/TermsWritePage.vue';
 
@@ -16,16 +19,17 @@ definePageMeta({
 	middleware: 'auth',
 });
 
+const route = useRoute();
 const router = useRouter();
 
 const handlerClickSaveButton = form => {
 	terms
-		.setUse({
-			seq: 0,
+		.setPrivacy({
+			seq: Number(route.params.id),
 			...form,
 		})
 		.then(() => {
-			alert('이용약관이 등록되었습니다.');
+			alert('개인정보처리방침이 수정되었습니다.');
 			router.go(-1);
 		})
 		.catch(e => {

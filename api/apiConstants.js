@@ -35,6 +35,14 @@ const API_URL = {
 		DETAIL: '/soda-notice/:board_id',
 		UPDATE_STATE: '/soda-notice/state',
 	},
+	TERMS: {
+		USE_LIST: '/terms/use/list',
+		USE_DETAIL: '/terms/use/:seq',
+		USE_SET: '/terms/use/:seq',
+		PRIVACY_LIST: '/terms/privacy/list',
+		PRIVACY_DETAIL: '/terms/privacy/:seq',
+		PRIVACY_SET: '/terms/privacy/:seq',
+	},
 };
 
 export default API_URL;
