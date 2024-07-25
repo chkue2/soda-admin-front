@@ -48,7 +48,7 @@
 						{{ t.memo }}
 					</p>
 				</div>
-				<div class="list-table-item w200">대기</div>
+				<div class="list-table-item w200">{{ t.state }}</div>
 				<div class="list-table-item w250">
 					{{ changeDateFormat(t.scheduledDate) }}
 				</div>
