@@ -110,7 +110,6 @@ const inquiryList = ref([]);
 const paging = ref({});
 
 watch(route, () => {
-	console.log(route.query);
 	searchForm.value = {
 		...{
 			useFlag: '',

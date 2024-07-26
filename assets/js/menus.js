@@ -27,17 +27,17 @@ const menus = [
 			},
 		],
 	},
-	{
-		title: '배너관리',
-		submenus: [
-			{
-				icon: 'banner-off.svg',
-				activeIcon: 'banner-on.svg',
-				title: '배너관리',
-				to: '/banner-manage/banner',
-			},
-		],
-	},
+	// {
+	// 	title: '배너관리',
+	// 	submenus: [
+	// 		{
+	// 			icon: 'banner-off.svg',
+	// 			activeIcon: 'banner-on.svg',
+	// 			title: '배너관리',
+	// 			to: '/banner-manage/banner',
+	// 		},
+	// 	],
+	// },
 	{
 		title: '고객센터',
 		submenus: [
