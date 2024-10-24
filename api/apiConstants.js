@@ -14,6 +14,10 @@ const API_URL = {
 		LOGOUT: '/auth/logout',
 		REFRESH: '/auth/refresh',
 	},
+	ADMIN: {
+		GET: '/admin-user',
+		UPDATE: '/admin-user/update',
+	},
 	MEMBER: {
 		LIST: '/user/list',
 		DETAIL: '/user/:user_id',

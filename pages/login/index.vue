@@ -41,7 +41,7 @@ const useAuth = useAuthStore();
 
 const credentials = ref({
 	userId: 'prirosSuperAdmin',
-	password: 'admin34774494!@#$',
+	password: 'asdf1234!',
 });
 
 onBeforeUnmount(() => {
@@ -65,8 +65,6 @@ const handlerClickLoginButton = async () => {
 	const isSuccess = await useAuth.login(credentials.value);
 
 	if (isSuccess) {
-		await useAuth.userProfile();
-
 		setTimeout(() => {
 			redirect();
 		}, 100);

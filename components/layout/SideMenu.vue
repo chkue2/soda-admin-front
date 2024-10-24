@@ -57,7 +57,7 @@
 					class="bottom-left-profile"
 				/>
 				<div class="bottom-text">
-					<p class="bottom-name">Admin</p>
+					<p class="bottom-name">{{ authStore.user.profile.userId }}</p>
 				</div>
 			</div>
 			<img
@@ -66,7 +66,9 @@
 				class="bottom-right"
 			/>
 			<div class="side-menu-bottom-submenu">
-				<div class="bottom-menu-item">어드민 정보 수정</div>
+				<div class="bottom-menu-item" @click="toggleInfoUpdateModal">
+					어드민 정보 수정
+				</div>
 				<div
 					class="bottom-menu-item"
 					@click="
@@ -81,11 +83,17 @@
 			</div>
 		</div>
 	</div>
+	<AdminInfoUpdateModal
+		v-if="isInfoUpdateModalShow"
+		@close-modal="toggleInfoUpdateModal"
+	/>
 </template>
 
 <script setup>
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+
+import AdminInfoUpdateModal from '~/components/modal/AdminInfoUpdateModal';
 
 import { menus } from '~/assets/js/menus.js';
 import { useAuthStore } from '~/store/auth.js';
@@ -97,6 +105,7 @@ const authStore = useAuthStore();
 
 const menuOpens = ref(new Array(menus.length).fill(true));
 const bottomMenuOpen = ref(false);
+const isInfoUpdateModalShow = ref(false);
 
 const menusArray = computed(() =>
 	menus.reduce((acc, cur) => {
@@ -111,6 +120,10 @@ const menusArray = computed(() =>
 
 const handlerClickToggleMenu = i => {
 	menuOpens.value = menuOpens.value.map((m, index) => (index === i ? !m : m));
+};
+
+const toggleInfoUpdateModal = () => {
+	isInfoUpdateModalShow.value = !isInfoUpdateModalShow.value;
 };
 </script>
 

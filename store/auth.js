@@ -20,6 +20,7 @@ export const useAuthStore = defineStore(
 					const response = await POST('/auth/login', credentials);
 					if (response && response.data) {
 						tokenApi.setToken(response.data.token, response.data.refreshToken);
+						this.userProfile(response.data.userId);
 						return true;
 					}
 
@@ -35,36 +36,15 @@ export const useAuthStore = defineStore(
 				}
 				return true;
 			},
-			userProfile() {
+			userProfile(userId) {
 				this.user = {
 					profile: {
-						position: '관리자',
-						userId: 'admin',
-						userName: '어드민',
-						userProfileImage: null,
+						userId,
 					},
 				};
 				if (typeof window !== 'undefined') {
 					localStorage.setItem(userSessionKey, JSON.stringify(this.user));
 				}
-
-				// try {
-				// 	GET_AUTH('/user/profile').then(response => {
-				// 		if (response && response.data) {
-				// 			this.user = {
-				// 				profile: {
-				// 					...response.data,
-				// 				},
-				// 			};
-				// 			if (typeof window !== 'undefined') {
-				// 				localStorage.setItem(userSessionKey, JSON.stringify(this.user));
-				// 			}
-				// 		}
-				// 	});
-				// } catch (e) {
-				// 	console.log(e);
-				// 	return false;
-				// }
 			},
 		},
 	},
