@@ -247,5 +247,6 @@ const handlerClickDisableEvent = e => {
 	visibility: hidden;
 	opacity: 0;
 	transition: all 0.15s linear;
+	z-index: 1;
 }
 </style>
