@@ -87,7 +87,7 @@
 						{{ tradeCase.tradeCaseId }}
 					</button>
 				</div>
-				<div class="list-table-item w200">{{ tradeCase.tradeCaseNo }}</div>
+				<div class="list-table-item w200">{{ tradeCase.bankMgmtNo }}</div>
 				<div class="list-table-item w220">
 					{{ changeDateFormatWithTimeRemoveSeconds(tradeCase.created) }}
 				</div>
