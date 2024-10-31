@@ -84,7 +84,9 @@
 						{{ r.firmName }}
 					</button>
 				</div>
-				<div class="list-table-item w100">{{ r.averageCriteria }}</div>
+				<div class="list-table-item w100">
+					{{ r.averageCriteria.toFixed(1) }}
+				</div>
 				<div class="list-table-item w100">{{ r.timeCriteria }}</div>
 				<div class="list-table-item w100">{{ r.kindCriteria }}</div>
 				<div class="list-table-item w100">{{ r.rapidCriteria }}</div>
