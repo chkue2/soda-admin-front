@@ -161,6 +161,13 @@ onMounted(() => {
 		});
 });
 
+const suspendFormValidation = computed(() => {
+	return (
+		suspendForm.value.suspendReason !== '' &&
+		suspendForm.value.suspendEndDate !== ''
+	);
+});
+
 const loginTypeText = type => {
 	switch (type) {
 		case 'NAVER':
@@ -184,6 +191,15 @@ const handlerClickTradeCaseId = str => {
 };
 
 const handlerClickSuspendSave = () => {
+	if (!suspendFormValidation.value) {
+		if (suspendForm.value.suspendEndDate === '') {
+			alert('중지 만료 날짜를 선택해주세요.');
+		} else if (suspendForm.value.suspendReason === '') {
+			alert('중지 사유를 입력해주세요');
+		}
+		return false;
+	}
+
 	const formData = {
 		...suspendForm.value,
 		userId: memberDetail.value.userId,
