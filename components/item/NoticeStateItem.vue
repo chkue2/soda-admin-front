@@ -32,7 +32,6 @@ const stateValue = ref('');
 
 onMounted(() => {
 	stateValue.value = props.useFlag;
-	console.log(props.useFlag);
 });
 
 const handlerClickNoticeState = e => {
