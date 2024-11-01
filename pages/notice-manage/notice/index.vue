@@ -18,8 +18,8 @@
 					</select>
 				</div>
 				<div class="list-search-item">
-					<p>팝업여부</p>
-					<select v-model="searchForm.noticePopupFlag">
+					<p>Notice여부</p>
+					<select v-model="searchForm.helpCenter">
 						<option value="">전체</option>
 						<option value="Y">Y</option>
 						<option value="N">N</option>
@@ -61,7 +61,6 @@
 				<div class="list-table-item w250">제목</div>
 				<div class="list-table-item w150">공지시작일</div>
 				<div class="list-table-item w100">공개여부</div>
-				<div class="list-table-item w100">팝업여부</div>
 				<div class="list-table-item w100">Notice여부</div>
 				<div class="list-table-item w200">등록자</div>
 				<div class="list-table-item w150">등록일시</div>
@@ -85,7 +84,6 @@
 				<div class="list-table-item w100">
 					<NoticeStateItem :board-id="n.boardId" :use-flag="n.useFlag" />
 				</div>
-				<div class="list-table-item w100">{{ n.noticePopupFlag }}</div>
 				<div class="list-table-item w100">{{ n.helpCenter }}</div>
 				<div class="list-table-item w200">{{ n.userId }}</div>
 				<div class="list-table-item w150">
@@ -121,7 +119,7 @@ const route = useRoute();
 
 const searchForm = ref({
 	useFlag: '',
-	noticePopupFlag: '',
+	helpCenter: '',
 	noticeStartDt: '',
 	noticeDateType: '',
 	searchKeyword: '',
@@ -135,7 +133,7 @@ watch(route, () => {
 	searchForm.value = {
 		...{
 			useFlag: '',
-			noticePopupFlag: '',
+			helpCenter: '',
 			noticeStartDt: '',
 			noticeDateType: '',
 			searchKeyword: '',
