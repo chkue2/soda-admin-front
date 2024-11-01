@@ -25,6 +25,13 @@
 			</div>
 		</div>
 		<div class="detail-section">
+			<p class="detail-section-title mb12">문의제목</p>
+			<input
+				v-model="inquiryDetail.title"
+				type="text"
+				class="detail-section-input mb24"
+				readonly
+			/>
 			<p class="detail-section-title mb24">문의내용</p>
 			<textarea
 				v-model="inquiryDetail.memo"
