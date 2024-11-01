@@ -14,7 +14,6 @@
 						<option value="">전체</option>
 						<option value="Y">공개</option>
 						<option value="N">비공개</option>
-						<option value="W">공개대기</option>
 						<option value="T">임시저장</option>
 					</select>
 				</div>
@@ -27,10 +26,13 @@
 					</select>
 				</div>
 				<div class="list-search-item">
-					<p>공지기간</p>
+					<p>날짜 검색</p>
+					<select v-model="searchForm.noticeDateType">
+						<option value="">전체</option>
+						<option value="created">등록일</option>
+						<option value="startDt">공지시작일</option>
+					</select>
 					<input v-model="searchForm.noticeStartDt" type="date" />
-					~
-					<input v-model="searchForm.noticeEndDt" type="date" />
 				</div>
 				<div class="list-search-item">
 					<p>검색</p>
@@ -121,7 +123,7 @@ const searchForm = ref({
 	useFlag: '',
 	noticePopupFlag: '',
 	noticeStartDt: '',
-	noticeEndDt: '',
+	noticeDateType: '',
 	searchKeyword: '',
 	pageNo: 1,
 });
@@ -135,7 +137,7 @@ watch(route, () => {
 			useFlag: '',
 			noticePopupFlag: '',
 			noticeStartDt: '',
-			noticeEndDt: '',
+			noticeDateType: '',
 			searchKeyword: '',
 			pageNo: 1,
 		},
