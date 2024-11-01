@@ -33,6 +33,8 @@
 						<option value="startDt">공지시작일</option>
 					</select>
 					<input v-model="searchForm.noticeStartDt" type="date" />
+					~
+					<input v-model="searchForm.noticeEndDt" type="date" />
 				</div>
 				<div class="list-search-item">
 					<p>검색</p>
