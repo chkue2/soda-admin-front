@@ -56,7 +56,7 @@
 				>등록</NuxtLink
 			>
 		</div>
-		<div class="list-table mt18 mb36">
+		<div v-if="!isLoading" class="list-table mt18 mb36">
 			<div class="list-table-header">
 				<div class="list-table-item w60">NO</div>
 				<div class="list-table-item w100">유형</div>
@@ -131,6 +131,8 @@ const searchForm = ref({
 const noticeList = ref([]);
 const paging = ref({});
 
+const isLoading = ref(true);
+
 watch(route, () => {
 	searchForm.value = {
 		...{
@@ -152,6 +154,7 @@ onMounted(() => {
 });
 
 const callApi = () => {
+	isLoading.value = true;
 	notice
 		.getList(searchForm.value)
 		.then(({ data }) => {
@@ -160,6 +163,9 @@ const callApi = () => {
 		})
 		.catch(e => {
 			alert(e.response.data.message);
+		})
+		.finally(() => {
+			isLoading.value = false;
 		});
 };
 
