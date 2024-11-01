@@ -19,7 +19,7 @@
 		<div></div>
 		<div class="form-grid-column">
 			<p class="form-title w100 flex-unset">Notice여부</p>
-			<select v-model="form.helpCenter" class="form-select w150">
+			<select v-model="form.noticePopupFlag" class="form-select w150">
 				<option value="Y">Y</option>
 				<option value="N">N</option>
 			</select>
@@ -54,7 +54,7 @@ const form = ref({
 	useFlag: 'Y',
 	noticeStartDt: '',
 	noticePopupFlag: 'Y',
-	helpCenter: 'Y',
+	noticePopupFlag: 'Y',
 	adminUserFlag: 'Y',
 	boardOrder: 0,
 	userId: 'prirosSuperAdmin',
