@@ -57,7 +57,7 @@
 					class="bottom-left-profile"
 				/>
 				<div class="bottom-text">
-					<p class="bottom-name">{{ authStore.user.profile.userId }}</p>
+					<p class="bottom-name">{{ authStore.user?.profile?.userId }}</p>
 				</div>
 			</div>
 			<img

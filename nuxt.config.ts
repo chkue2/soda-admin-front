@@ -42,7 +42,6 @@ export default defineNuxtConfig({
 			apiURL: process.env.API_URL,
 		},
 	},
-	plugins: ['~/plugins/router.js'],
 	ssr: false,
 	modules: ['@pinia/nuxt'],
 	css: ['~/assets/scss/_style.scss'],

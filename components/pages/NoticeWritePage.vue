@@ -7,18 +7,13 @@
 	<select v-model="form.useFlag" class="form-select w150 mb12">
 		<option value="Y">공개</option>
 		<option value="N">비공개</option>
-		<option value="W">공개대기</option>
 		<option value="T">임시저장</option>
 	</select>
 	<div class="form-grid mb36">
 		<div class="form-grid-column">
-			<p class="form-title w100">공개 예약 설정</p>
-			<div class="form-input">
+			<p class="form-title w100 flex-unset">공개 시작일</p>
+			<div class="form-input w250">
 				<input v-model="form.noticeStartDt" type="datetime-local" />
-			</div>
-			~
-			<div class="form-input">
-				<input v-model="form.noticeEndDt" type="datetime-local" />
 			</div>
 		</div>
 		<div></div>
@@ -58,7 +53,6 @@ const form = ref({
 	content: '',
 	useFlag: 'Y',
 	noticeStartDt: '',
-	noticeEndDt: '',
 	noticePopupFlag: 'Y',
 	helpCenter: 'Y',
 	adminUserFlag: 'Y',

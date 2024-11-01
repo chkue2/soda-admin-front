@@ -57,11 +57,11 @@
 				<div class="list-table-item w60">NO</div>
 				<div class="list-table-item w100">유형</div>
 				<div class="list-table-item w250">제목</div>
-				<div class="list-table-item w250">공지기간</div>
+				<div class="list-table-item w150">공지시작일</div>
 				<div class="list-table-item w100">공개여부</div>
 				<div class="list-table-item w100">팝업여부</div>
 				<div class="list-table-item w100">Notice여부</div>
-				<div class="list-table-item w120">등록자</div>
+				<div class="list-table-item w200">등록자</div>
 				<div class="list-table-item w150">등록일시</div>
 			</div>
 			<div
@@ -77,16 +77,15 @@
 						{{ n.title }}
 					</p>
 				</div>
-				<div class="list-table-item w250">
-					{{ changeDateFormat(n.noticeStartDt) }} ~
-					{{ changeDateFormat(n.noticeEndDt) }}
+				<div class="list-table-item w150">
+					{{ changeDateFormat(n.noticeStartDt) }}
 				</div>
 				<div class="list-table-item w100">
 					<NoticeStateItem :board-id="n.boardId" :use-flag="n.useFlag" />
 				</div>
 				<div class="list-table-item w100">{{ n.noticePopupFlag }}</div>
 				<div class="list-table-item w100">{{ n.helpCenter }}</div>
-				<div class="list-table-item w120">{{ n.userId }}</div>
+				<div class="list-table-item w200">{{ n.userId }}</div>
 				<div class="list-table-item w150">
 					{{ changeDateFormatWithTime(n.created) }}
 				</div>

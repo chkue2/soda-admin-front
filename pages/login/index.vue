@@ -75,20 +75,8 @@ const handlerClickLoginButton = async () => {
 
 const redirect = () => {
 	const redirectUrl = localStorage.getItem(LOGIN_REDIRECT_KEY);
-	const redirectAuth = localStorage.getItem(LOGIN_REDIRECT_AUTH_KEY);
 
-	if (redirectAuth === 'Y') {
-		if (
-			route.redirectedFrom === undefined ||
-			route.redirectedFrom.fullPath === undefined
-		) {
-			router.replace('/');
-		} else {
-			router.replace(route.redirectedFrom.fullPath);
-		}
-	} else {
-		router.replace(redirectUrl || '/');
-	}
+	router.replace(redirectUrl || '/');
 };
 </script>
 

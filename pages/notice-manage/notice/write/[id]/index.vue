@@ -23,7 +23,6 @@ const noticeSave = form => {
 	const formData = {
 		...form,
 		noticeStartDt: dayjs(form.noticeStartDt).format('YYYY-MM-DD HH:mm:ss'),
-		noticeEndDt: dayjs(form.noticeEndDt).format('YYYY-MM-DD HH:mm:ss'),
 		updated: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 	};
 
