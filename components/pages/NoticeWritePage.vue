@@ -19,7 +19,7 @@
 		<div></div>
 		<div class="form-grid-column">
 			<p class="form-title w100 flex-unset">Notice여부</p>
-			<select v-model="helpCenter" class="form-select w150">
+			<select v-model="form.helpCenter" class="form-select w150">
 				<option value="Y">Y</option>
 				<option value="N">N</option>
 			</select>
