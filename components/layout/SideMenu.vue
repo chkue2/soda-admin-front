@@ -7,17 +7,60 @@
 				<p class="side-menu-top-content">Workspace</p>
 			</div>
 		</div>
-		<div class="side-menu-container">
+		<div v-if="false" class="side-menu-top-bar">프리로스</div>
+		<div v-if="false" class="side-menu-container pb24">
 			<div
-				v-for="(menu, index) in menusArray"
+				v-for="(menu, index) in prirosMenusArray"
 				:key="index"
 				class="side-menu-wrapper"
 			>
-				<div class="side-menu-toggle" @click="handlerClickToggleMenu(index)">
+				<div
+					class="side-menu-toggle"
+					@click="handlerClickTogglePrirosMenu(index)"
+				>
 					<span>{{ menu.title }}</span>
 					<img src="/img/icon/expand-right-black-bold.svg" />
 				</div>
-				<div class="side-menu-sub-wrapper" :class="{ open: menuOpens[index] }">
+				<div
+					class="side-menu-sub-wrapper"
+					:class="{ open: prirosMenuOpens[index] }"
+				>
+					<div v-for="(s, index2) in menu.submenus" :key="index2">
+						<NuxtLink
+							class="side-menu-sub-item"
+							:class="{ active: s.active }"
+							:to="s.to"
+						>
+							<div class="side-menu-sub-left">
+								<img
+									:src="`/img/icon/${s.active ? s.activeIcon : s.icon}`"
+									alt="알림"
+								/>
+								<span>{{ s.title }}</span>
+							</div>
+						</NuxtLink>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="side-menu-top-bar">등기소다</div>
+		<div class="side-menu-container">
+			<div
+				v-for="(menu, index) in sodaMenusArray"
+				:key="index"
+				class="side-menu-wrapper"
+			>
+				<div
+					class="side-menu-toggle"
+					@click="handlerClickToggleSodaMenu(index)"
+				>
+					<span>{{ menu.title }}</span>
+					<img src="/img/icon/expand-right-black-bold.svg" />
+				</div>
+				<div
+					class="side-menu-sub-wrapper"
+					:class="{ open: sodaMenuOpens[index] }"
+				>
 					<div v-for="(s, index2) in menu.submenus" :key="index2">
 						<NuxtLink
 							class="side-menu-sub-item"
@@ -95,7 +138,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 import AdminInfoUpdateModal from '~/components/modal/AdminInfoUpdateModal';
 
-import { menus } from '~/assets/js/menus.js';
+import { sodaMenus, prirosMenus } from '~/assets/js/menus.js';
 import { useAuthStore } from '~/store/auth.js';
 
 const route = useRoute();
@@ -103,12 +146,23 @@ const router = useRouter();
 
 const authStore = useAuthStore();
 
-const menuOpens = ref(new Array(menus.length).fill(true));
+const sodaMenuOpens = ref(new Array(sodaMenus.length).fill(true));
+const prirosMenuOpens = ref(new Array(prirosMenus.length).fill(true));
 const bottomMenuOpen = ref(false);
 const isInfoUpdateModalShow = ref(false);
 
-const menusArray = computed(() =>
-	menus.reduce((acc, cur) => {
+const prirosMenusArray = computed(() =>
+	prirosMenus.reduce((acc, cur) => {
+		cur.submenus = cur.submenus.reduce((acc, cur) => {
+			acc.push({ ...cur, active: route.fullPath.includes(cur.to) });
+			return acc;
+		}, []);
+		acc.push(cur);
+		return acc;
+	}, []),
+);
+const sodaMenusArray = computed(() =>
+	sodaMenus.reduce((acc, cur) => {
 		cur.submenus = cur.submenus.reduce((acc, cur) => {
 			acc.push({ ...cur, active: route.fullPath.includes(cur.to) });
 			return acc;
@@ -118,8 +172,15 @@ const menusArray = computed(() =>
 	}, []),
 );
 
-const handlerClickToggleMenu = i => {
-	menuOpens.value = menuOpens.value.map((m, index) => (index === i ? !m : m));
+const handlerClickTogglePrirosMenu = i => {
+	prirosMenuOpens.value = prirosMenuOpens.value.map((m, index) =>
+		index === i ? !m : m,
+	);
+};
+const handlerClickToggleSodaMenu = i => {
+	sodaMenuOpens.value = sodaMenuOpens.value.map((m, index) =>
+		index === i ? !m : m,
+	);
 };
 
 const toggleInfoUpdateModal = () => {
@@ -164,6 +225,12 @@ const toggleInfoUpdateModal = () => {
 		color: #bababa;
 		line-height: 17px;
 	}
+}
+.side-menu-top-bar {
+	padding: 8px 12px;
+	background-color: #f5f5f5;
+	font-weight: $ft-bold;
+	font-size: 14px;
 }
 .side-menu-sub-container {
 	padding: 16px;

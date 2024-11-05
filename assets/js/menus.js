@@ -1,4 +1,295 @@
-const menus = [
+const prirosMenus = [
+	{
+		title: '마켓관리',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '마켓관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '사건 상태변경',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '입찰매칭관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '이상사건',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '사건파기내역',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '알림조회',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '전문관리',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '마켓재보고',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '마켓전문이력',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '전문에러',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '통계',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '시도별통계',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '전문가분포지도',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '전국 법무사 정보',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '업무통계',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '게시판관리',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '공지사항',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: 'FAQ',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '문서관리',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '문서관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '등기유형별문서관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '알리고템플릿관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '약관관리',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '채권관리',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '채권할인율관리',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '기관관리',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '기관신청관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '블랙리스트 기관별 관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '기관관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '지점관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '협약기관관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '안심본인인증',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '이용자관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '이용자 필수정보관리',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '평점관리',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '평점기준',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '평점이력',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '태그관리',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '고객평점',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '상담노트',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '1:1문의',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '상담노트',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '결제관리',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '보험료결제내역',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '취소분 소급 결제 내역',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '보험료 일반 결제 내역',
+				to: '/',
+			},
+		],
+	},
+	{
+		title: '어드민',
+		submenus: [
+			{
+				icon: '',
+				activeIcon: '',
+				title: '사용이력',
+				to: '/',
+			},
+			{
+				icon: '',
+				activeIcon: '',
+				title: '어드민 사용자 관리',
+				to: '/',
+			},
+		],
+	},
+];
+const sodaMenus = [
 	{
 		title: '회원관리',
 		submenus: [
@@ -102,4 +393,4 @@ const menus = [
 		],
 	},
 ];
-export { menus };
+export { prirosMenus, sodaMenus };
