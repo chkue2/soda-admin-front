@@ -7,7 +7,6 @@
 	>
 		<option value="Y">공개</option>
 		<option value="N">비공개</option>
-		<option value="W">공개대기</option>
 		<option value="T">임시저장</option>
 	</select>
 </template>
