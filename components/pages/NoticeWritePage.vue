@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { notice } from '~/services/notice.js';
@@ -81,10 +81,32 @@ onMounted(() => {
 	}
 });
 
+const isValidation = computed(() => {
+	return (
+		form.value.noticeStartDt !== '' &&
+		form.value.title !== '' &&
+		form.value.content.replace('<p><br></p>', '') !== ''
+	);
+});
+
 const handlerClickSaveButton = () => {
 	const markup = $('#summernote').summernote('code');
 	form.value.content = markup;
 	form.value = { ...form.value, boardId };
+
+	console.log(form.value.content);
+
+	if (!isValidation.value) {
+		if (form.value.noticeStartDt === '') {
+			alert('공지 공개 시작일을 선택해주세요.');
+		} else if (form.value.title === '') {
+			alert('공지 제목을 입력해주세요.');
+		} else if (form.value.content.replace('<p><br></p>', '') === '') {
+			alert('공지 내용을 입력해주세요.');
+		}
+
+		return false;
+	}
 
 	emit('notice-save', form.value);
 };
